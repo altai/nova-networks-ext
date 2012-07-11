@@ -9,7 +9,7 @@ Name:             nova-networks-ext
 Version:          1.0
 Release:          0
 Summary:          A common networks-ext server
-License:          LGPL 2.1
+License:          Apache 2.0
 Vendor:           Grid Dynamics International, Inc.
 URL:              http://www.griddynamics.com/openstack
 Group:            Development/Languages/Python
