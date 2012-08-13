@@ -34,7 +34,7 @@ from nova.db.sqlalchemy import models
 
 
 FLAGS = flags.FLAGS
-LOG = logging.getLogger(__name__)
+LOG = logging.getLogger("nova.api")
 authorize = extensions.extension_authorizer('compute', 'networks')
 authorize_view = extensions.extension_authorizer('compute', 'networks:view')
 
