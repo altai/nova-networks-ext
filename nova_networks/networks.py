@@ -69,7 +69,6 @@ class NetworkController(object):
     def action(self, req, id, body):
         _actions = {
             'disassociate': self._disassociate,
-            'associate': self._associate,
         }
 
         for action, data in body.iteritems():
@@ -214,13 +213,14 @@ class NetworkController(object):
         result = [network_dict(context, net_ref) for net_ref in networks]
         return  {'networks': result}
 
-    def _associate(self, req, network_id, body):
+    def add(self, req, body):
         context = req.environ['nova.context']
         authorize(context)
         if not body:
             raise exc.HTTPUnprocessableEntity()
 
-        project_id = body["associate"]
+        network_id = body.get('id', None)
+        project_id = context.project_id
         LOG.debug(_("Associating network %s with project %s") %
                   (network_id, project_id))
         session = get_session()
@@ -234,11 +234,6 @@ class NetworkController(object):
             explanation=_("Cannot associate network %s with project %s") %
             (network_id, project_id))
 
-    def add(self, req, body):
-        return self._associate(
-            req, body.get('id', None),
-            {'associate': context.project_id})
-
     def detail(self, req):
         return self.index(req)
 
@@ -246,7 +241,7 @@ class NetworkController(object):
 class Networks(extensions.ExtensionDescriptor):
     """Admin-only Network Management Extension."""
 
-    name = "GDNetworks"
+    name = "Networks"
     alias = "gd-networks"
     namespace = "http://docs.openstack.org/compute/ext/networks/api/v1.1"
     updated = "2012-07-06T00:00:00+00:00"
