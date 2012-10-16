@@ -19,7 +19,7 @@ BuildRoot:        %{_tmppath}/%{name}-%{version}-build
 BuildRequires:    python-devel
 BuildRequires:    python-setuptools
 BuildArch:        noarch
-Requires:         openstack-nova-essex-api
+Requires:         openstack-nova-api
 
 
 %description
